@@ -9,9 +9,9 @@ count_loop:
 	xorq	%rax,%rax
 	movb	(%rsi),%al
 	cmpq	$0,%rax
-	je		end
+	je      end
 	incq	%rsi
-	jmp		count_loop
+	jmp     count_loop
 end:
 	movq	%rsi,%rax
 	subq	%rdi,%rax

@@ -9,9 +9,9 @@ count_loop:
 	xorl	%eax,%eax
 	movb	(%esi),%al
 	cmpl	$0,%eax
-	je		end
+	je      end
 	incl	%esi
-	jmp		count_loop
+	jmp     count_loop
 end:
 	movl	%esi,%eax
 	subl	4(%esp),%eax
