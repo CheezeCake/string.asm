@@ -8,7 +8,7 @@ _strlen_asm:
 count_loop:
 	xorq	%rax,%rax
 	movb	(%rsi),%al
-	cmpq	$0,%rax
+	cmpb	$0,%al
 	je      end
 	incq	%rsi
 	jmp     count_loop

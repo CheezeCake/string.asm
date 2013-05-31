@@ -8,7 +8,7 @@ _strlen_asm:
 count_loop:
 	xorl	%eax,%eax
 	movb	(%esi),%al
-	cmpl	$0,%eax
+	cmpb	$0,%al
 	je      end
 	incl	%esi
 	jmp     count_loop
