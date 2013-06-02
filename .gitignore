@@ -1,3 +1,4 @@
 *.o
 *.swp
-test.c
+test*.*
+a.out
