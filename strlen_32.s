@@ -6,9 +6,7 @@
 _strlen_asm:
 	movl	4(%esp),%esi
 count_loop:
-	xorl	%eax,%eax
-	movb	(%esi),%al
-	cmpb	$0,%al
+	cmpb	$0,%(%esi)
 	je      end
 	incl	%esi
 	jmp     count_loop
