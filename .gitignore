@@ -1,4 +1,5 @@
 *.o
+*.i
 *.swp
 test*.*
-a.out
+a.out*
