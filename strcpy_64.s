@@ -4,6 +4,7 @@
 #char* strcpy(char* dest, const char* src);
 
 _strcpy_asm:
+	movq	%rdi,%rax
 copy_loop:
 	movsb
 	cmpb	$0,(%rsi)
