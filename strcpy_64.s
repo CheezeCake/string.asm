@@ -1,7 +1,7 @@
 .text
 .globl _strcpy_asm
 
-#char* strcpy(const char* dest, const char* src);
+#char* strcpy(char* dest, const char* src);
 
 _strcpy_asm:
 copy_loop:
