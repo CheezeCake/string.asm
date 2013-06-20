@@ -61,7 +61,7 @@ FreeBSD|Linux|OpenBSD)
 	;;
 *)
 	echo "$libname has not been tested on $os ..."
-	echo "$libname should work on any OS with a ompiler following the cdecl calling "
+	echo "$libname should work on any OS with a compiler following the cdecl calling "
 	echo "convention on x86 or the System V AMD 64 ABI on x86_64"
 	exit 2
 esac
