@@ -1,5 +1,6 @@
 *.o
 *.i
+lib/*
 *.swp
 test*.*
 a.out*
