@@ -1,0 +1,75 @@
+#!/bin/sh
+
+libname="string.asm"
+makefilebase=Makefile.base
+arch=auto
+march= 
+format= 
+
+printf "checking for yasm...\t"
+command -v yasm > /dev/null 2>&1 || { printf "no\nyasm is required to 
+build $libname.\n"; exit 1; }
+echo "ok"
+
+case $# in
+0)
+	;;
+1)
+	if [ "$1" != 32 ] && [ "$1" != 64 ]; then
+		echo "invalid march: $1"
+		exit 1
+	fi
+	march="$1"
+	arch=x86
+	if [ $march = 64 ]; then
+		arch=$arch"_64"
+	fi
+	;;
+*)
+	echo "invalid argument list"
+	exit 1
+esac
+
+if [ $arch = auto ]
+then
+	printf "checking for architechture...\t"
+	case `uname -m` in
+	i386|i486|i586|i686|x86)
+		march=32
+		arch=x86
+		echo "x86 detected"
+		;;
+	x86_64|x86-64|amd64)
+		march=64
+		arch=x86_64
+		echo "x86_64 detected"
+		;;
+	*)
+		echo "architecture not supported."
+		exit 1
+	esac
+fi
+
+#OS detection
+os=`uname`
+case $os in
+Darwin)
+	format=macho$march
+	;;
+FreeBSD|Linux|OpenBSD)
+	format=elf$march
+	;;
+*)
+	echo "$libname has not been tested on $os ..."
+	echo "$libname should work on any OS following the cdecl calling "
+	echo "convention on x86 or the System V AMD 64 ABI on x86_64"
+	exit 2
+esac
+
+echo "-----------------------------"
+echo "Running on $os"
+echo "Architechture selected: $arch"
+echo "Object format set to: $format"
+
+#Makefile generation
+sed "s/FORMAT=.*/FORMAT=$format/" < $makefilebase | sed "s/ARCH=.*/ARCH=$arch/" > Makefile
