@@ -2,5 +2,6 @@
 *.i
 lib/*
 *.swp
+Makefile
 test*.*
 a.out*
