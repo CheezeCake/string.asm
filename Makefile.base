@@ -4,9 +4,10 @@ ARCH=
 ASFLAGS=-f $(FORMAT) -p gas
 SRC=$(wildcard src/$(ARCH)/*.s)
 OBJ=$(SRC:.s=.o)
-TARGET=lib/string_asm.a
+TESTDIR=test/
+TARGET=lib/libstring_asm.a
 
-all: $(TARGET)
+all: $(TARGET) test
 
 $(TARGET): $(OBJ)
 	ar rv $@ $^
@@ -14,12 +15,16 @@ $(TARGET): $(OBJ)
 %.o: %.s
 	$(AS) $(ASFLAGS) -o $@ $^
 
-.PHONY: clean mrproper rebuild
+.PHONY: clean mrproper rebuild test
 
 clean:
 	@rm -f $(OBJ)
+	@rm -f $(TESTDIR)*.bin
 
 mrproper: clean
 	@rm $(TARGET)
 
 rebuild: mrproper all
+
+test: $(TARGET)
+	@cd $(TESTDIR) && ./test

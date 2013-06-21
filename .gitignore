@@ -3,4 +3,4 @@
 lib/*
 *.swp
 Makefile
-test/*
+test/*.bin

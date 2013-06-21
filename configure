@@ -51,10 +51,12 @@ then
 fi
 
 #OS detection
+leading_underscore=false
 os=`uname`
 case $os in
 Darwin)
 	format=macho$march
+	leading_underscore=true
 	;;
 FreeBSD|Linux|OpenBSD)
 	format=elf$march
@@ -72,4 +74,9 @@ echo "Architechture selected: $arch"
 echo "Object format set to: $format"
 
 #Makefile generation
-sed "s/FORMAT=.*/FORMAT=$format/" < $makefilebase | sed "s/ARCH=.*/ARCH=$arch/" > Makefile
+asflags= 
+if [ $leading_underscore = true ]; then
+	asflags="--prefix=_"
+fi
+
+sed "s/FORMAT=.*/FORMAT=$format/" < $makefilebase | sed "s/ARCH=.*/ARCH=$arch/" | sed -E "s/(ASFLAGS=.*)/\1 $asflags/" > Makefile
