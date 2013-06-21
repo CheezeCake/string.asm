@@ -1,9 +1,9 @@
 .text
-.globl _strcmp_asm
+.globl strcmp_asm
 
 #int strcmp(const char *lhs, const char *rhs);
 
-_strcmp_asm:
+strcmp_asm:
 	#%rdi = rhs, %rsi = lhs
 cmp_loop:
 	movb	(%rdi),%al
@@ -17,12 +17,11 @@ cmp_loop:
 
 equal:
 	movq	$0,%rax
-	jmp     return
+	ret
 end:
 	xorq	%rax,%rax
 	xorq	%rdx,%rdx
 	movb	(%rdi),%al
 	movb	(%rsi),%dl
 	subq	%rdx,%rax
-return:
 	ret

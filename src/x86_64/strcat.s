@@ -1,9 +1,9 @@
 .text
-.globl _strcat_asm
+.globl strcat_asm
 
 #char* strcat(char* dest, const char* src);
 
-_strcat_asm:
+strcat_asm:
 	movq	%rdi,%rax
 get_to_end:
 	cmpb	$0,(%rdi)

@@ -1,9 +1,9 @@
 .text
-.globl _strcpy_asm
+.globl strcpy_asm
 
 #char* strcpy(char* dest, const char* src);
 
-_strcpy_asm:
+strcpy_asm:
 	movq	%rdi,%rax
 copy_loop:
 	movsb

@@ -1,9 +1,9 @@
 .text
-.globl _strlen_asm
+.globl strlen_asm
 
 #size_t strlen(const char* str);
 
-_strlen_asm:
+strlen_asm:
 	movl	4(%esp),%esi
 count_loop:
 	cmpb	$0,(%esi)

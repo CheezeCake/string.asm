@@ -1,9 +1,9 @@
 .text
-.globl _strlen_asm
+.globl strlen_asm
 
 #size_t strlen(cont char *str);
 
-_strlen_asm:
+strlen_asm:
 	movq	%rdi,%rsi #s = str
 count_loop:
 	cmpb	$0,(%rsi)
