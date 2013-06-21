@@ -1,0 +1,15 @@
+#!/bin/sh
+
+CC=gcc
+CFLAGS='-I ../include -L ../lib'
+LIB=-lstring_asm
+
+for file in *.c
+do
+	bname=`basename $file .c`
+	bin=$bname".bin"
+	$CC $file -o $bin $CFLAGS $LIB
+	printf "$bname...\t"
+	./$bin || { echo "[FAIL]"; exit 1; }
+	echo "[PASS]"
+done
