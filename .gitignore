@@ -3,5 +3,4 @@
 lib/*
 *.swp
 Makefile
-test*.*
-a.out*
+test/*
