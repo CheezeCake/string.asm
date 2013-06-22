@@ -8,7 +8,7 @@ strcpy_asm:
 copy_loop:
 	movsb
 	cmpb	$0,(%rsi)
-	je      end
-	jmp     copy_loop
+	je	end
+	jmp	copy_loop
 end:
 	ret

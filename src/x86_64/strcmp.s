@@ -7,13 +7,13 @@ strcmp_asm:
 	#%rdi = rhs, %rsi = lhs
 cmp_loop:
 	movb	(%rdi),%al
-	cmpb	%al,(%rsi)
-	jne     end
+	cmpb	(%rsi),%al
+	jne	end
 	cmpb	$0,%al
-	je      equal
+	je	equal
 	incq	%rdi
 	incq	%rsi
-	jmp     cmp_loop
+	jmp	cmp_loop
 
 equal:
 	movq	$0,%rax

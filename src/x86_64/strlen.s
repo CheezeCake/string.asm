@@ -7,9 +7,9 @@ strlen_asm:
 	movq	%rdi,%rsi #s = str
 count_loop:
 	cmpb	$0,(%rsi)
-	je      end
+	je	end
 	incq	%rsi
-	jmp     count_loop
+	jmp	count_loop
 end:
 	movq	%rsi,%rax
 	subq	%rdi,%rax
