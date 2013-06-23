@@ -1,7 +1,7 @@
 #!/bin/sh
 
 CC=gcc
-CFLAGS='-I ../include -L ../lib'
+CFLAGS='-I ../include -L ../lib'" $1"
 LIB=-lstring_asm
 
 for file in *.c

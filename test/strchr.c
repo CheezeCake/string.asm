@@ -1,6 +1,5 @@
 #include <string.h>
-
-char* strchr_asm(const char*, int);
+#include <string_asm.h>
 
 int main(void)
 {
