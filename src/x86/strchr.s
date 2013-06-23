@@ -4,20 +4,21 @@
 #char* strchr(const char *str, int c);
 
 strchr_asm:
-	movq	%rsi,%rcx
+	movl	4(%esp),%edi
+	movl	8(%esp),%ecx
 srch_loop:
-	cmpb	%cl,(%rdi)
+	cmpb	%cl,(%edi)
 	je	return_pos
-	cmpb	$0,(%rdi)
+	cmpb	$0,(%edi)
 	je	return_null
-	incq	%rdi
+	incl	%edi
 	jmp	srch_loop
 
 return_null:
 	cmpb	$0,%cl
 	je	return_pos
-	xorq	%rax,%rax
+	xorl	%eax,%eax
 	ret
 return_pos:
-	movq	%rdi,%rax
+	movl	%edi,%eax
 	ret

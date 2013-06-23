@@ -4,7 +4,7 @@
 #int strcmp(const char *lhs, const char *rhs);
 
 strcmp_asm:
-	#%rdi = rhs, %rsi = lhs
+	#%rdi = lhs, %rsi = rhs
 cmp_loop:
 	movb	(%rdi),%al
 	cmpb	(%rsi),%al

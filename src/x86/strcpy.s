@@ -4,10 +4,12 @@
 #char* strcpy(char *dest, const char *src);
 
 strcpy_asm:
-	movq	%rdi,%rax
+	movl	4(%esp),%edi
+	movl	8(%esp),%esi
+	movl	%edi,%eax
 copy_loop:
 	movsb
-	cmpb	$0,(%rsi)
+	cmpb	$0,(%edi)
 	je	end
 	jmp	copy_loop
 end:
