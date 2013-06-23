@@ -1,7 +1,4 @@
 AS=yasm
-FORMAT=
-ARCH=
-ASFLAGS=-f $(FORMAT) -p gas
 SRC=$(wildcard src/$(ARCH)/*.s)
 OBJ=$(SRC:.s=.o)
 TESTDIR=test/
@@ -22,9 +19,9 @@ clean:
 	@rm -f $(TESTDIR)*.bin
 
 mrproper: clean
-	@rm $(TARGET)
+	@rm -f $(TARGET)
 
 rebuild: mrproper all
 
 test: $(TARGET)
-	@cd $(TESTDIR) && ./test
+	@cd $(TESTDIR) && ./test $(TESTFLAGS)

@@ -2,6 +2,7 @@
 
 libname="string.asm"
 makefilebase=Makefile.base
+makefile=Makefile
 arch=auto
 march= 
 format= 
@@ -79,4 +80,10 @@ if [ $leading_underscore = true ]; then
 	asflags="--prefix=_"
 fi
 
-sed "s/FORMAT=.*/FORMAT=$format/" < $makefilebase | sed "s/ARCH=.*/ARCH=$arch/" | sed -E "s/(ASFLAGS=.*)/\1 $asflags/" > Makefile
+{
+echo "FORMAT=$format"
+echo "ARCH=$arch"
+echo "ASFLAGS=-f \$(FORMAT) -p gas $asflags"
+echo "TESTFLAGS=-m$march"
+cat $makefilebase
+} > $makefile
