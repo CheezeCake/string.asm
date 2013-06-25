@@ -9,5 +9,6 @@ int strcmp_asm(const char*, const char*);
 char* strcpy_asm(char*, const char*);
 size_t strlen_asm(const char*);
 char* strrchr_asm(const char*, int);
+size_t strspn_asm(const char*, const char*);
 
 #endif
