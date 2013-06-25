@@ -8,8 +8,7 @@ march=
 format= 
 
 printf "checking for yasm...\t"
-command -v yasm > /dev/null 2>&1 || { printf "no\nyasm is required to 
-build $libname.\n"; exit 1; }
+command -v yasm > /dev/null 2>&1 || { printf "no\nyasm is required to build $libname.\n"; exit 1; }
 echo "ok"
 
 case $# in
