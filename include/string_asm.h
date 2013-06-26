@@ -3,6 +3,8 @@
 
 #include <sys/types.h>
 
+void bzero_asm(void*, size_t);
+void* memset_asm(void*, int, size_t);
 char* strcat_asm(char*, const char*);
 char* strchr_asm(const char*, int);
 int strcmp_asm(const char*, const char*);
