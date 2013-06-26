@@ -1,11 +1,20 @@
 #!/bin/sh
 
+# configure script for string.asm
+# this script generates a makefile for GNU make
+# based on the file Makefile.base
+
 libname="string.asm"
 makefilebase=Makefile.base
 makefile=Makefile
 arch=auto
 march= 
 format= 
+
+if ! [ -f $makefilebase ]; then
+	echo "$makefilebase not found."
+	exit 1
+fi
 
 printf "checking for yasm...\t"
 command -v yasm > /dev/null 2>&1 || { printf "no\nyasm is required to build $libname.\n"; exit 1; }
