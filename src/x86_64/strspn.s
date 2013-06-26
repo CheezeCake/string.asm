@@ -1,31 +1,30 @@
-.data
-	.align 4
-	t: .quad 0, 0, 0, 0 #256 bits
-
 .macro GET_BIT c
 	xorq	%rax,%rax
-	xorq	%rdx,%rdx
 	movb	\c,%al
-	movb	$64,%cl
-	divb	%cl #al = ax/cl, ah = ax%cl
-	movb	%ah,%dl #rdx = mod
+	movb	$64,%dl
+	divb	%dl #al = ax/dl, ah = ax%dl
+	movb	%ah,%cl #cl = mod
 	xorb	%ah,%ah #rax = quotient
-	movb	$1,%cl
-	salq	%cl,%rdx #rdx = 1<<rdx (bit)
+	movq	$1,%rdx
+	salq	%cl,%rdx #rdx = 1<<cl
 .endm
 
 .text
-.globl _strspn_asm
+.globl strspn_asm
 
 #size_t strspn(const char *str, const char *charset);
 
-_strspn_asm:
+strspn_asm:
 	#rdi = str, rsi = charset
 	pushq	%rbp
 	movq	%rsp,%rbp
-	subq	$8,%rsp
+	subq	$40,%rsp #s+t[4]
 	movq	%rdi,-8(%rbp) #str
-	leaq	t(%rip),%rdi #rdi = t
+	movq	$0,-16(%rbp)
+	movq	$0,-24(%rbp)
+	movq	$0,-32(%rbp)
+	movq	$0,-40(%rbp)
+	movq	%rsp,%rdi #rdi = t
 init_t:
 	cmpb	$0,(%rsi)
 	je	end_init_t
@@ -51,6 +50,6 @@ check_str:
 end:
 	movq	%rsi,%rax
 	subq	-8(%rbp),%rax
-	addq	$8,%rsp
+	addq	$40,%rsp
 	popq	%rbp
 	ret
