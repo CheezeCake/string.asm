@@ -4,11 +4,11 @@
 #void* memset(void *buffer, int c, size_t len);
 
 memset_asm:
-	movl	(%esp),%eax
-	movl	8(%esp),%edx
+	movl	4(%esp),%eax
+	movl	12(%esp),%edx
 	cmpl	$0,%edx
 	je	end
-	movl	4(%esp),%ecx
+	movl	8(%esp),%ecx
 set_loop:
 	decl	%edx
 	movb	%cl,(%eax,%edx)

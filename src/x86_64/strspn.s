@@ -1,6 +1,5 @@
 .macro GET_BIT c
-	xorq	%rax,%rax
-	movb	\c,%al
+	movzx	\c,%rax
 	movb	$64,%dl
 	divb	%dl #al = ax/dl, ah = ax%dl
 	movb	%ah,%cl #cl = mod
@@ -18,7 +17,7 @@ strspn_asm:
 	#rdi = str, rsi = charset
 	pushq	%rbp
 	movq	%rsp,%rbp
-	subq	$40,%rsp #s+t[4]
+	subq	$40,%rsp #char *s, long t[4]
 	movq	%rdi,-8(%rbp) #str
 	movq	$0,-16(%rbp)
 	movq	$0,-24(%rbp)
@@ -32,7 +31,7 @@ init_t:
 	#rax = c/64, rdx = 1<<(c%64)
 	movq	(%rdi,%rax,8),%rcx #rcx = t[rax]
 	orq	%rdx,%rcx #t[rax] |= rdx
-	movq	%rcx, (%rdi, %rax,8)
+	movq	%rcx,(%rdi,%rax,8)
 	incq	%rsi
 	jmp	init_t
 end_init_t:
