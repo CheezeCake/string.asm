@@ -1,8 +1,6 @@
-# TODO: DEBUG !!!
-
 .macro GET_BIT c
 	movzx	\c,%eax
-	movb	$64,%dl
+	movb	$32,%dl
 	divb	%dl #al = ax/dl, ah = ax%dl
 	movb	%ah,%cl #cl = mod
 	xorb	%ah,%ah #eax = quotient
@@ -14,6 +12,7 @@
 .globl strspn_asm
 
 #size_t strspn(const char *str, const char *charset);
+
 strspn_asm:
 	pushl	%ebp
 	movl	%esp,%ebp
@@ -34,9 +33,9 @@ init_t:
 	GET_BIT (%esi)
 	#eax = c/32, edx = 1<<(c%32)
 	movl	(%edi,%eax,4),%ecx #ecx = t[eax]
-	orl	%edx,%ecx #t[rax] |= edx
+	orl	%edx,%ecx #t[eax] |= edx
 	movl	%ecx,(%edi,%eax,4)
-	incl	%edi
+	incl	%esi
 	jmp	init_t
 end_init_t:
 	movl	8(%ebp),%esi #esi = str
@@ -44,7 +43,7 @@ check_str:
 	cmpb	$0,(%esi)
 	je	end
 	GET_BIT (%esi)
-	movl	(%esi,%eax,4),%ecx
+	movl	(%edi,%eax,4),%ecx
 	andl	%edx,%ecx #ecx &= edx
 	cmpl	$0,%ecx
 	je	end
@@ -53,6 +52,6 @@ check_str:
 end:
 	movl	%esi,%eax
 	subl	8(%ebp),%eax
-	addl	$32,%ebp
+	addl	$32,%esp
 	popl	%ebp
 	ret
